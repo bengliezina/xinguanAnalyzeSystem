@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <!-- jquery文件 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+   
+    <!-- Custom CSS -->
+    <link href="dist/css/style.min.css" rel="stylesheet">
+    <!-- This Page CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/extra-libs/prism/prism.css">
+    
+
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+     <!-- Bootstrap tether Core JavaScript -->
+     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+     <!-- apps -->
+     <script src="dist/js/app.min.js"></script>
+     <script src="dist/js/app.init.horizontal.js"></script>
+     <script src="dist/js/app-style-switcher.horizontal.js"></script>
+     <!-- slimscrollbar scrollbar JavaScript -->
+     <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+     <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+     <!--Wave Effects -->
+     <script src="dist/js/waves.js"></script>
+     <!--Menu sidebar -->
+     <script src="dist/js/sidebarmenu.js"></script>
+     <!--Custom JavaScript -->
+     <script src="dist/js/custom.min.js"></script>
+     <!-- This Page JS -->
+     <script src="assets/extra-libs/prism/prism.js"></script>
+
+     <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+     <script src="https://js.arcgis.com/4.15/"></script>
+    <title>新冠疫情舆情分析</title>
+    <style>
+        #viewDiv {
+            position: absolute;
+            width: 100%;
+            height: 85%;
+        }
+
+        #titleDiv {
+            font-weight: 400;
+            font-style: normal;
+            font-size: 1.2019rem;
+            padding: 10px;
+        }
+
+        #infoDiv {
+            padding: 10px;
+            height: 190px;
+            width: 100px;
+            background-color: white;
+            opacity: 0.95;
+        }
+
+        #description {
+            padding: 10px 0 10px 0;
+        }
+
+        #legendDiv {
+            height: 135px;
+            width: 160px;
+            margin-left: 10px;
+        }
+
+        #legendDiv #ribbon>div {
+            width: 50px;
+            height: 25px;
+            border: 0.5px solid #444444;
+        }
+
+        #legendDiv #corValue>p {
+            margin: 6.5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="main-wrapper" style="position: absolute;height: 100%;"> 
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark col-md-6">
+                <div class="navbar-header">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <h4 class="page-title">新冠疫情舆情分析系统</h4>
+                    
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" stlye="position:relative;z-index:999">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"><a href="home page.html" class="sidebar-link"><i
+                                    class="mdi mdi-adjust"></i><span class="hide-menu"> 首页 </span></a></li>
+
+                        
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-inbox-arrow-down"></i><span class="hide-menu">新闻分析 </span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"><a href="news/attentionAndKeyword/newsAttention.html" class="sidebar-link"><i
+                                            class="mdi mdi-email"></i><span class="hide-menu"> 新闻关注度分析 </span></a></li>
+                                <li class="sidebar-item"><a href="news/attentionAndKeyword/news emotion analysis.html" class="sidebar-link"><i
+                                            class="mdi mdi-email-alert"></i><span class="hide-menu">新闻情感倾向分析
+                                        </span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="sidebar-item"><a href="weibo/weibo emotion.html" class="sidebar-link"><i
+                            class="mdi mdi-adjust"></i><span class="hide-menu"> 微博情感倾向分析 </span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div id="viewDiv">
+            <div id="titleDiv" class="esri-widget">中国各地级市疫情期间被报道情况图
+            </div>
+        </div>
+           
+            <div class="widget" id="infoDiv">
+                <div id="description">单位：条</div>
+                <div id="legendDiv">
+                    <div id="ribbon" style="float: left;">
+                        <div class="rib5" style="background-color: rgba(255, 0, 0, 1);"></div>
+                        <div class="rib4" style="background-color: rgba(255, 69, 0, 1);"></div>
+                        <div class="rib3" style="background-color: rgba(255, 140, 0, 1);"></div>
+                        <div class="rib2" style="background-color: rgba(255, 195, 193, 1);"></div>
+                        <div class="rib1" style="background-color: rgba(255, 255, 255, 0);"></div>
+                    </div>
+                    <span id="corValue" style="float: left; margin-top: 12px;">
+                        <p>50</p>
+                        <p>38</p>
+                        <p>25</p>
+                        <p>13</p>
+                        <p>0</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- customizer Panel -->
+    <!-- ============================================================== -->
+    <aside class="customizer">
+        <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
+        <div class="customizer-body">
+            <ul class="nav customizer-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                        aria-controls="pills-home" aria-selected="true"><i class="mdi mdi-wrench font-20"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#chat" role="tab"
+                        aria-controls="chat" aria-selected="false"><i class="mdi mdi-message-reply font-20"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                        aria-controls="pills-contact" aria-selected="false"><i
+                            class="mdi mdi-star-circle font-20"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Tab 1 -->
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="p-15 border-bottom">
+                        <!-- Sidebar -->
+                        <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
+                            <label class="custom-control-label" for="theme-view">Dark Theme</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="sidebar-position"
+                                id="sidebar-position">
+                            <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="header-position"
+                                id="header-position">
+                            <label class="custom-control-label" for="header-position">Fixed Header</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="boxed-layout" id="boxed-layout">
+                            <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-logobg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Navbar BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-navbarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Navbar BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link"
+                                    data-sidebarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                </div>
+                <!-- End Tab 1 -->
+                
+               
+            </div>
+        </div>
+    </aside>
+
+    
+   
+
+    <script src="baseMapMakeForHome.js"></script>
+    <script src="heatmap.js"></script>
+    <script src="dynamicPresentHeatmap.js"></script>
+    <script>
+        setInterval(dynamicPresentHeatmap, 5000);
+    </script>
+</body>
+
+</html>
