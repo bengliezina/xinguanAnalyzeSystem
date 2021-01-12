@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <!-- jquery文件 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <!-- This Page CSS -->
+    <link rel="stylesheet" type="text/css" href="../../assets/extra-libs/prism/prism.css">
+
+
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../dist/js/app.init.horizontal.js"></script>
+    <script src="../../dist/js/app-style-switcher.horizontal.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="../../dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../dist/js/custom.min.js"></script>
+    <!-- This Page JS -->
+    <script src="../../assets/extra-libs/prism/prism.js"></script>
+
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.15/"></script>
+    <title>新冠疫情舆情分析</title>
+
+    <style>
+        .functionArea {
+            position: absolute;
+            margin-top: 5px;
+            z-index: 999;
+            right: 8px;
+            width: 300px;
+            height: 450px;
+            background-color: #ffffff;
+            margin-right: 20px;
+            box-shadow: -1px 0px 4px 1px #555555;
+            /*IE滤镜，透明度90%*/
+            filter: alpha(opacity=90);
+            /*其他浏览器（firefox浏览器除外），透明度90%*/
+            opacity: 0.95;
+        }
+
+        .functionArea #emotion {
+            width: 300px;
+            height: 165px;
+            margin: 0 auto;
+        }
+
+        .functionArea button {
+            width: 20%;
+            height: 25px;
+            margin: 0 100px;
+            cursor: pointer;
+        }
+
+        .foldButton {
+            background-color: #ffffff;
+            position: absolute;
+            margin-top: 5px;
+            z-index: 999;
+            right: 0;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .50);
+        }
+
+        .esri-view .esri-view-surface--inset-outline:focus::after {
+            outline: auto 0px Highlight !important;
+            outline: auto 0px -webkit-focus-ring-color !important;
+        }
+
+        #infoDiv {
+            padding: 10px;
+            width: 270px;
+            background-color: white;
+            opacity: 0.95;
+        }
+
+        #description {
+            margin-top: 10px;
+        }
+
+        .polygon #legendDiv {
+            height: 165px;
+            width: 160px;
+            margin-left: 10px;
+        }
+
+        .polygon #legendDiv #ribbon>div {
+            width: 40px;
+            height: 20px;
+            border: 0.5px solid #444444;
+            margin: 5px;
+        }
+
+        #legendDiv #corValue>p {
+            margin: 7px;
+        }
+
+        .points #legendDiv {
+            height: 60px;
+            width: 130px;
+            margin-left: 10px;
+        }
+
+        .points #legendDiv #ribbon>div {
+            width: 20px;
+            height: 20px;
+            border: 0.5px solid #444444;
+            margin: 4px;
+            border-radius: 10px;
+        }
+
+        /* 地图div */
+        #viewDiv {
+            position: absolute;
+            width: 100%;
+            height: 85%;
+        }
+
+        #timeSliderDiv {
+            position: absolute;
+            bottom: 30px;
+            left: 330px;
+            right: 330px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="main-wrapper" style="position: absolute;height: 100%;">
+        <!--头部标题及导航栏部分-->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark col-md-6">
+                <div class="navbar-header">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <h4 class="page-title">新冠疫情舆情分析系统</h4>
+
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar" stlye="position:relative;z-index:999">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"><a href="../../home page.html" class="sidebar-link"><i
+                                    class="mdi mdi-adjust"></i><span class="hide-menu"> 首页 </span></a></li>
+
+
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="mdi mdi-inbox-arrow-down"></i><span class="hide-menu">新闻分析 </span></a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item"><a href="../attentionAndKeyword/newsAttention.html"
+                                        class="sidebar-link"><i class="mdi mdi-email"></i><span class="hide-menu">
+                                            新闻关注度分析 </span></a></li>
+                                <li class="sidebar-item"><a href="news emotion analysis.html" class="sidebar-link"><i
+                                            class="mdi mdi-email-alert"></i><span class="hide-menu">新闻情感倾向分析
+                                        </span></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item"><a href="../../weibo/weibo emotion.html" class="sidebar-link"><i
+                                    class="mdi mdi-adjust"></i><span class="hide-menu"> 微博情感倾向分析 </span></a></li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--头部标题及导航栏部分-->
+
+
+
+        <div id="viewDiv"> </div>
+        <div id="timeSliderDiv"></div>
+
+        <div class="widget" id="infoDiv">
+            <div class="polygon">
+                <div id="description">新闻报道表现的情感倾向（&lt;0.5：消极；>0.5：积极）</div>
+                <div id="legendDiv">
+                    <div id="ribbon" style="float: left; margin: 3px;">
+
+                        <div class="rib0" style="background-color: #3b4371"></div>
+                        <div class="rib1" style="background-color: #60526A"></div>
+                        <div class="rib2" style="background-color: #816164"></div>
+                        <div class="rib3" style="background-color: #CD6600"></div>
+                        <div class="rib4" style="background-color:#EE7600"></div>
+                        <div class="rib5" style="background-color: #FF7F00"></div>
+
+                    </div>
+                    <span id="corValue" style="float: left;">
+                        <p>0~0.1</p>
+                        <p>0.1~0.29</p>
+                        <p>0.3~0.49</p>
+                        <p>0.5~0.59</p>
+                        <p>0.6~0.79</p>
+                        <p>0.8~1</p>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <aside class="customizer show-service-panel">
+        <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
+        <div class="customizer-body">
+            <ul class="nav customizer-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                        aria-controls="pills-home" aria-selected="true"><img src="images/nlp-sa 情感分析.png" alt=""></a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Tab 1 -->
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="newsAttentionDiv">
+                        <h3 style="margin-top: 10px; margin-left: 15px; height: 40px">
+                            <b>新闻情感倾向分析</b>
+                        </h3>
+
+                        <div id="emotion">
+                            <!-- 新闻情感倾向查询显示部分 -->
+                            <div class="areaSelect" style="display: inline-block;width:100%; height:60px;margin-left: 15px;
+                            margin-top: 10px;">
+                                <h4 style="line-height: 30px;">区域:</h4>
+                                <form action="AS">
+                                    <select name="area" id="province" style="width: 42%;height: 25px;" v-model="area">
+                                        <option value="北京">北京</option>
+                                        <option value="天津">天津</option>
+                                        <option value="上海">上海</option>
+                                        <option value="重庆">重庆</option>
+                                        <option value="哈尔滨">黑龙江</option>
+                                        <option value="长春">吉林</option>
+                                        <option value="太原">山西</option>
+                                        <option value="石家庄">河北</option>
+                                        <option value="合肥">安徽</option>
+                                        <option value="福州">福建</option>
+                                        <option value="南昌">江西</option>
+                                        <option value="济南">山东</option>
+                                        <option value="郑州">河南</option>
+                                        <option value="长沙">湖南</option>
+                                        <option value="武汉">湖北</option>
+                                        <option value="广州">广东</option>
+                                        <option value="南宁">广西</option>
+                                        <option value="成都">四川</option>
+                                        <option value="海口">海南</option>
+                                        <option value="贵阳">贵州</option>
+                                        <option value="云南">云南</option>
+                                        <option value="苏州">江苏</option>
+                                        <option value="南京">浙江</option>
+                                        <option value="西宁">青海</option>
+                                        <option value="西安">陕西</option>
+                                        <option value="兰州">甘肃</option>
+                                        <option value="拉萨">西藏</option>
+                                        <option value="呼和浩特">内蒙古</option>
+                                        <option value="宁夏">宁夏</option>
+                                        <option value="乌鲁木齐">新疆</option>
+                                        <option value="澳门">澳门</option>
+                                        <option value="香港">香港</option>
+                                        <option value="台湾">台湾</option>
+                                        <option value="武汉市">武汉</option>
+                                    </select>
+                                </form>
+                            </div>
+
+                            <hr>
+                            <div class="datesSelect"
+                                style="margin-left: 15px; border-bottom: 1px solid rgba(0, 0, 0, 0.5)">
+                                <h4 style="line-height: 30px;">时间段展示:</h4>
+                                <input type="date" id="sDate" min="2020-01-13" max="2020-01-23" v-model="startDate">
+                                至
+                                <input type="date" id="eDate" min="2020-01-23" max="2020-04-18" v-model="endDate">
+                                <br><br>
+                                <button v-on:click="fillArea">展示</button>
+                            </div>
+                        </div>
+
+                        <div id="dataVisualize" style="width: 270px; height: 250px; margin: 0 auto"></div>
+                    </div>
+                </div>
+                <!-- End Tab 1 -->
+            </div>
+        </div>
+    </aside>
+
+
+
+
+    <!-- 、、、、、、、、、、、、、、、、、、、、、、、、、、 -->
+    <!-- 上面的面板 样式 在你的基础上稍微改了一点，主要是宽度小于面板的宽度且居中、透明度、阴影 -->
+
+    <script src="baseMapMakeForNewsEmotion.js"></script>
+    <script src="clusterToChartForNewsEmotion.js"></script>
+    <script src="showByClusterForNewsEmotion.js"></script>
+    <script src="areaFillForNewsEmotion.js"></script>
+    <script src="dynamicPresentationForNewsEmotion.js"></script>
+
+
+    <script>
+        //仪表盘
+        var gaugeChart = echarts.init(document.getElementById('dataVisualize'));
+
+
+        $("#fold").click(function () {
+            var functionArea = document.getElementById("functionArea1");
+            var foldBtn = document.querySelector('p');
+            if (functionArea.style.display != 'none') {
+                functionArea.style.display = 'none';
+                foldBtn.innerHTML = '&lt;&lt;'; //面板隐藏之后，折叠按钮变成<<
+            } else {
+                functionArea.style.display = "";
+                foldBtn.innerHTML = '&gt;&gt;'; //面板显示，折叠按钮变成>>
+            }
+        })
+
+
+        var vm = new Vue({
+            el: '#emotion',
+            data: {
+                area: '北京',
+
+                startDate: '2020-01-23',
+                endDate: '2020-01-23',
+                province: '北京'
+            },
+            methods: {
+                fillArea: function (event) {
+                    if (this.startDate == this.endDate)
+                        setSingleDate(this.startDate, this.endDate, this.area, this.province);
+                    else
+                        setDates(this.startDate, this.endDate, this.area, this.province);
+                }
+            },
+            watch: {
+                startDate: function (val) {
+                    this.startDate = val;
+                    $("#eDate").attr("min", val);
+                },
+                endDate: function (val) {
+                    this.endDate = val;
+                    $("#sDate").attr("max", val);
+                },
+                area: function () {
+                    if (this.area == "北京")
+                        this.province = "北京";
+                    else if (this.area == "天津")
+                        this.province = "天津";
+                    else if (this.area == "上海")
+                        this.province = "上海";
+                    else if (this.area == "重庆")
+                        this.province = "重庆";
+                    else if (this.area == "哈尔滨")
+                        this.province = "黑龙江";
+                    else if (this.area == "长春")
+                        this.province = "吉林";
+                    else if (this.area == "沈阳")
+                        this.province = "辽宁";
+                    else if (this.area == "呼和浩特")
+                        this.province = "内蒙古";
+                    else if (this.area == "石家庄")
+                        this.province = "河北";
+                    else if (this.area == "乌鲁木齐")
+                        this.province = "新疆";
+                    else if (this.area == "兰州")
+                        this.province = "甘肃";
+                    else if (this.area == "西宁")
+                        this.province = "青海";
+                    else if (this.area == "西安")
+                        this.province = "陕西";
+                    else if (this.area == "银川")
+                        this.province = "宁夏";
+                    else if (this.area == "郑州")
+                        this.province = "河南";
+                    else if (this.area == "济南")
+                        this.province = "山东";
+                    else if (this.area == "太原")
+                        this.province = "山西";
+                    else if (this.area == "合肥")
+                        this.province = "安徽";
+                    else if (this.area == "武汉")
+                        this.province = "湖北";
+                    else if (this.area == "长沙")
+                        this.province = "湖南";
+                    else if (this.area == "南京")
+                        this.province = "江苏";
+                    else if (this.area == "成都")
+                        this.province = "四川";
+                    else if (this.area == "贵阳")
+                        this.province = "贵州";
+                    else if (this.area == "昆明")
+                        this.province = "云南";
+                    else if (this.area == "南宁")
+                        this.province = "广西";
+                    else if (this.area == "广州")
+                        this.province = "广东";
+                    else if (this.area == "拉萨")
+                        this.province = "西藏";
+                    else if (this.area == "杭州")
+                        this.province = "浙江";
+                    else if (this.area == "南昌")
+                        this.province = "江西";
+                    else if (this.area == "福州")
+                        this.province = "福建";
+                    else if (this.area == "台北")
+                        this.province = "台湾";
+                    else if (this.area == "海口")
+                        this.province = "海南";
+                    else if (this.area == "香港")
+                        this.province = "香港";
+                    else if (this.area == "澳门")
+                        this.province = "澳门";
+                }
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

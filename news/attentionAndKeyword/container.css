@@ -1,0 +1,218 @@
+/* 新闻关注度分析div */
+
+
+.newsAttentionDiv .daohang {
+    margin: 0 auto;
+    width: 270px;
+    height: 25px;
+}
+
+/*关键词查询显示部分*/
+.newsAttentionDiv .key {
+    
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 270px;
+    height: 150px;
+}
+
+.newsAttentionDiv .key .input_key {
+    margin: 0 auto;
+    width: 270px;
+}
+
+.newsAttentionDiv .key .selectArea {
+    margin: 0 auto;
+    margin-top: 5px;
+    width: 270px;
+}
+
+.newsAttentionDiv .key .selectArea>h3 {
+    float: left;
+    margin-right: 20px;
+}
+
+.newsAttentionDiv .key .selectArea #province {
+    float: left;
+    width: 80px;
+    height: 25px;
+    font-size: 16px;
+    font-family: "Arial Normal";
+}
+
+.datesSelect>button {
+    display: inline-block;
+    margin-right: 60px;
+    margin-bottom: 10px;
+}
+/* 用于关键词与城市关注度查询点击时的颜色改变 */
+.current {
+    background-color: rgb(8, 123, 151);
+}
+
+.foldButton {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, .50);
+}
+
+
+
+/* 显示新闻列表div */
+.newsDiv {
+    display: none;
+    position: absolute;
+    background-color: white;
+    left: 20px; 
+    top: 150px;
+    width: 360px;
+    height: 350px;
+    z-index: 99;
+    border: 5px solid rgba(207, 226, 164, 1);
+    opacity: 0.9;
+}
+.newsDiv .close {
+    width: 26px;
+    height: 26px;
+    border: 2px solid rgba(59, 65, 47, 1);
+    border-radius: 13px;
+    right: 0px;
+    top: 0px;
+    font-size: 30px;
+    line-height: 20px;
+    text-align: center;
+    color: rgba(59, 65, 47, 1);
+    position: absolute;
+}
+.newsDiv .newsContainer{
+    width: 290px;
+    height: 260px;
+    border-width:2px;
+    border-style: solid;
+    border-color: rgba(207, 226, 164, 1); 
+    margin: 20px auto;
+}
+
+.newsDiv .newsContainer a{
+    text-decoration: none;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    line-height: 18px;
+    width: 100%;
+    text-overflow: ellipsis;                
+    white-space: nowrap;
+    display: inline-block;
+    overflow: hidden;
+    color: #000;
+}
+
+.newsDiv .newsContainer p{
+    font-family: 'Microsoft YaHei';
+    font-size: 12px;
+    line-height: 15px;
+    width: 100%;          
+    display: inline-block;
+    color: rgba(71, 73, 72, 1);
+}
+
+.newsDiv .newsContainer a:hover{
+    text-decoration: none;
+    color:rgba(5, 238, 75, 1);
+}
+
+.newsDiv .newsContainer a em{
+    width: 4px;
+    height: 4px;
+    background-color:#2cb82c;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.newsDiv .control{
+    width: 290px;
+    height: 25px;
+    margin: 0 auto;
+}
+
+.newsDiv .control>div {
+    display: inline-block;
+    margin-left: 13px;
+}
+.newsDiv .control .PgUp{
+    width: 70px;
+    height: 20px;
+    border-width:2px;
+    border-style: solid;
+    border-color: rgba(31, 34, 28, 1);
+    text-align: center
+}
+
+.newsDiv .control .yema{
+    width: 80px;
+    height: 20px;
+    text-align: center
+}
+
+.newsDiv .PgDown{
+    width: 70px;
+    height: 20px;
+    border-width:2px;
+    border-style: solid;
+    border-color: rgba(58, 63, 55, 1);
+    text-align: center
+}
+
+#viewDiv {
+    position: absolute;
+    
+    width: 100%;
+    height: 85%;
+}
+
+.esri-view .esri-view-surface--inset-outline:focus::after {
+    outline: auto 0px Highlight !important;
+    outline: auto 0px -webkit-focus-ring-color !important;
+}
+#timeSliderDiv {
+    position: absolute;
+    
+    left: 330px;
+    right: 310px;
+    bottom: 15px;
+
+    /*IE滤镜，透明度80%*/
+    filter: alpha(opacity=80);
+    /*其他浏览器（firefox浏览器除外），透明度80%*/
+    opacity: 0.95;
+}
+
+#infoDiv {
+    padding: 10px;
+    width: 270px;
+    z-index: 999;
+    background-color:  white;
+    opacity: 0.9;
+}
+
+#description {
+    padding: 10px 0 10px 0;
+}
+
+#legendDiv {
+    height: 150px;
+    width: 160px;
+    margin-left: 10px;
+}
+
+#legendDiv #ribbon>div {
+    width: 40px;
+    height: 20px;
+    border: 0.5px solid #444444;
+    margin: 5px;
+}
+
+#legendDiv #corValue>p {
+    margin: 7px;
+}
